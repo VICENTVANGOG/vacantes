@@ -1,0 +1,44 @@
+.button {
+  display: flex;
+  align-items: center;
+  padding: 0.5rem 1rem;
+  border-radius: 0.375rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+
+  &.vacantes,
+  &.companias,
+  &.active,
+  &.agregar,
+  &.editar,
+  &.eliminar {
+    background-color: rgb(236, 72, 153); // Color rosado
+    color: white;
+
+    &:hover {
+      background-color: rgb(219, 39, 119); // Rosado más oscuro
+    }
+  }
+
+  &.inactive {
+    background-color: rgb(229, 231, 235); // Gris claro
+    color: rgb(107, 114, 128); // Gris oscuro
+
+    &:hover {
+      background-color: rgb(209, 213, 219); // Gris más oscuro
+    }
+  }
+
+  &.eliminar {
+    background-color: white;
+    color: rgb(239, 68, 68); // Rojo
+
+    &:hover {
+      background-color: rgb(254, 242, 242); // Gris claro
+      color: rgb(220, 38, 38); // Rojo más oscuro
+    }
+  }
+}
