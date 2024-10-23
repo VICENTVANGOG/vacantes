@@ -24,7 +24,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({ activeTab }) => {
           variant="agregar" 
           style={{ backgroundColor: getActiveButtonColor() }}
         >
-          <Plus size={16} /> {/* Icono de más */}
+          <Plus size={16} />
           {activeTab === 'vacantes' ? 'Agregar Vacante' : 'Agregar Compañía'}
         </Button>
       </div>

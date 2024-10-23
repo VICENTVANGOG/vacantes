@@ -1,17 +1,12 @@
-
 import React, { ReactNode } from 'react';
-import styles from './style.module.scss'; 
 
 interface MyComponentProps {
-  children: ReactNode; 
+  children: ReactNode;
+  className?: string; // Clase opcional
 }
 
-const Myh1: React.FC<MyComponentProps> = ({ children }) => {
-  return (
-    <div className={styles.myComponent}> 
-      {children}
-    </div>
-  );
+const Myh1: React.FC<MyComponentProps> = ({ children, className }) => {
+  return <h1 className={className}>{children}</h1>;
 };
 
 export default Myh1;
