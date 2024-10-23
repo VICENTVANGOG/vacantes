@@ -2,7 +2,7 @@ import React from 'react';
 import Myh1 from '@/components/ui/atoms/h1/h1';
 import Button from '@/components/ui/atoms/button/button';
 import styles from './HeroSection.module.scss';
-import { Plus } from "lucide-react";
+import { CirclePlus  } from "lucide-react";
 
 interface HeroSectionProps {
   activeTab: 'vacantes' | 'companias';
@@ -24,7 +24,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({ activeTab }) => {
           variant="agregar" 
           style={{ backgroundColor: getActiveButtonColor() }}
         >
-          <Plus size={16} />
+          <CirclePlus  size={16} />
           {activeTab === 'vacantes' ? 'Agregar Vacante' : 'Agregar Compañía'}
         </Button>
       </div>
