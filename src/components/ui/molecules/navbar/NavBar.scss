@@ -1,0 +1,120 @@
+.navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem;
+    background-color: white;
+    border-bottom: 1px solid #e5e7eb;
+  
+    &__left {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+    }
+  
+    &__icon {
+      width: 2rem;
+      height: 2rem;
+      background-color: #A855F7;
+      border-radius: 0.375rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+  
+      svg {
+        width: 1.25rem;
+        height: 1.25rem;
+        color: white;
+      }
+    }
+  
+    &__buttons {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+  
+    &__button {
+      display: flex;
+      align-items: center;
+      padding: 0.5rem 1rem;
+      border-radius: 0.375rem;
+      font-weight: 500;
+      transition: background-color 0.2s, color 0.2s;
+  
+      svg {
+        width: 1.25rem;
+        height: 1.25rem;
+        margin-right: 0.5rem;
+      }
+  
+      &--vacantes {
+        background-color: white;
+        color: #A855F7;
+        border: 2px solid #A855F7;
+  
+        &:hover {
+          background-color: #A855F7;
+          color: white;
+        }
+  
+        &.navbar__button--active {
+          background-color: #A855F7;
+          color: white;
+  
+          &:hover {
+            background-color: #9333EA;
+          }
+        }
+      }
+  
+      &--companias {
+        background-color: white;
+        color: #EC4899;
+        border: 2px solid #EC4899;
+  
+        &:hover {
+          background-color: #EC4899;
+          color: white;
+        }
+  
+        &.navbar__button--active {
+          background-color: #EC4899;
+          color: white;
+  
+          &:hover {
+            background-color: #DB2777;
+          }
+        }
+      }
+    }
+  
+    &__search {
+      position: relative;
+  
+      &-input {
+        padding-left: 2.5rem;
+        padding-right: 1rem;
+        padding-top: 0.5rem;
+        padding-bottom: 0.5rem;
+        border: 1px solid #d1d5db;
+        border-radius: 0.375rem;
+        background-color: white;
+        color: #000000;
+  
+        &:focus {
+          outline: none;
+         ring: 2px solid #A855F7;
+          border-color: black;
+        }
+      }
+  
+      &-icon {
+        position: absolute;
+        left: 0.75rem;
+        top: 50%;
+        transform: translateY(-50%);
+        color: #000000;
+      }
+    }
+  }

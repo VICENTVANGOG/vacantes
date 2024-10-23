@@ -15,30 +15,30 @@
   &.agregar,
   &.editar,
   &.eliminar {
-    background-color: rgb(236, 72, 153); // Color rosado
+    background-color: rgb(236, 72, 153); 
     color: white;
 
     &:hover {
-      background-color: rgb(219, 39, 119); // Rosado más oscuro
+      background-color: rgb(219, 39, 119); 
     }
   }
 
   &.inactive {
-    background-color: rgb(229, 231, 235); // Gris claro
-    color: rgb(107, 114, 128); // Gris oscuro
+    background-color: rgb(229, 231, 235);
+    color: rgb(107, 114, 128); 
 
     &:hover {
-      background-color: rgb(209, 213, 219); // Gris más oscuro
+      background-color: rgb(209, 213, 219);
     }
   }
 
   &.eliminar {
     background-color: white;
-    color: rgb(239, 68, 68); // Rojo
+    color: rgb(239, 68, 68);
 
     &:hover {
-      background-color: rgb(254, 242, 242); // Gris claro
-      color: rgb(220, 38, 38); // Rojo más oscuro
+      background-color: rgb(254, 242, 242);
+      color: rgb(220, 38, 38); 
     }
   }
 }
