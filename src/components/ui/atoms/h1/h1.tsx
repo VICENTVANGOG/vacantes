@@ -2,7 +2,7 @@ import React, { ReactNode } from 'react';
 
 interface MyComponentProps {
   children: ReactNode;
-  className?: string; // Clase opcional
+  className?: string; 
 }
 
 const Myh1: React.FC<MyComponentProps> = ({ children, className }) => {

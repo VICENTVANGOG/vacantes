@@ -1,17 +1,25 @@
-
-import React, { ReactNode } from 'react';
+import React from 'react';
 import styles from './style.module.scss';
 
 interface MyTextareaProps {
-  children?: ReactNode; 
+  id?: string;
+  name?: string;
+  placeholder?: string;
+  value: string;
   onChange: React.ChangeEventHandler<HTMLTextAreaElement>;
+  className?: string; 
 }
 
-const MyTextarea: React.FC<MyTextareaProps> = ({ children, onChange }) => {
+const MyTextarea: React.FC<MyTextareaProps> = ({ id, name, placeholder, value, onChange, className }) => {
   return (
-    <textarea className={styles.myTextarea} onChange={onChange}>
-      {children}
-    </textarea>
+    <textarea 
+      id={id} 
+      name={name} 
+      placeholder={placeholder} 
+      value={value} 
+      onChange={onChange} 
+      className={`${styles.myTextarea} ${className || ''}`} 
+    />
   );
 };
 

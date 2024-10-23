@@ -1,15 +1,24 @@
-
 import React, { ReactNode } from 'react';
 import styles from './style.module.scss';
 
 interface MySelectProps {
-  children: ReactNode;
+  id?: string;
+  name?: string;
+  value: string;
   onChange: React.ChangeEventHandler<HTMLSelectElement>;
+  className?: string;
+  children: ReactNode;
 }
 
-const MySelect: React.FC<MySelectProps> = ({ children, onChange }) => {
+const MySelect: React.FC<MySelectProps> = ({ id, name, value, onChange, className, children }) => {
   return (
-    <select className={styles.mySelect} onChange={onChange}>
+    <select 
+      id={id}
+      name={name}
+      value={value}
+      onChange={onChange}
+      className={`${styles.mySelect} ${className || ''}`}
+    >
       {children}
     </select>
   );
