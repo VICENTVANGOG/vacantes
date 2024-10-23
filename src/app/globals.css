@@ -12,19 +12,27 @@
 
 html,
 body {
-  max-width: 1200;
+  max-width: 1500px;
+  width: 100%;
   overflow-x: hidden;
   margin: 0 auto;
-  border: 1px solid  tomato;
-  
+  height: 100vh; 
 }
 
 body {
   color: var(--foreground);
-  background: var(--background);
+  background: linear-gradient(to right, rgb(192, 132, 252), rgb(236, 72, 153), rgb(239, 68, 68));
+  background-color: var(--background); 
   font-family: Arial, Helvetica, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+.gradient-background {
+  height: 100%; 
+  background-color: var(--background);
+  padding: 20px; 
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 * {
