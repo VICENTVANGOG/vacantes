@@ -4,6 +4,8 @@ import Label from '@/components/ui/atoms/label/label';
 import Input from '@/components/ui/atoms/input/input';
 import Textarea from '@/components/ui/atoms/textarea/textarea';
 import Select from '@/components/ui/atoms/select/select';
+import './group.scss'; 
+
 
 interface FormGroupProps {
   id: string;
@@ -21,7 +23,7 @@ const FormGroup: React.FC<FormGroupProps> = ({ id, label, type, value, onChange,
     <div className={className}>
       <Label htmlFor={id}>{label}</Label>
       {type === 'text' && (
-        <Input id={id} name={id} type="text" placeholder={placeholder} value={value} onChange={onChange} />
+        <Input id={id} name={id} type="text" placeholder={placeholder} value={value} onChange={onChange} className='input' />
       )}
       {type === 'textarea' && (
         <Textarea id={id} name={id} placeholder={placeholder} value={value} onChange={onChange} />
