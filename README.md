@@ -1,36 +1,69 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Proyecto de Gestión de Inventarios
 
-## Getting Started
+## Descripción
 
-First, run the development server:
+Este proyecto consiste en desarrollar una aplicación web de gestión de vacantes y compañias. La aplicación permitirá a los usuarios administrar las compañias y los vacantes, agregar nuevas vacantes y compañías, y realizar seguimiento de las mismas. El objetivo es facilitar la gestión de vacantes y compañias de una manera eficiente y eficaz.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## Enlace de Despliegue
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Puedes acceder a la aplicación en https://vacantes-taupe.vercel.app/home
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Funcionalidades
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- **Gestión de Vacantes y Compañías**: Los usuarios pueden agregar,editar y eliminar vacantes y compañías, así como ver la información detallada de cada una.
+- **Búsqueda y Filtrado**: Funcionalidades de búsqueda para encontrar rápidamente vacantes y compañías.
+- **Interfaz de Usuario Amigable**: Un diseño intuitivo y fácil de usar que facilita la navegación y la gestión de datos.
 
-## Learn More
+## Tecnologías Utilizadas
 
-To learn more about Next.js, take a look at the following resources:
+- **Frontend**: 
+  - React
+  - TypeScript
+  - SASS
+  - nexts js
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Instalación
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+1. Clona el repositorio:
+    ```bash
+    git clone https://github.com/usuario/proyecto-inventarios.git
+    ```
 
-## Deploy on Vercel
+2. Navega al directorio del proyecto:
+    ```bash
+    cd proyecto-inventarios
+    ```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+3. Instala las dependencias:
+    ```bash
+    npm install
+    ```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+4. Inicia el servidor de desarrollo:
+    ```bash
+    npm start
+    ```
+
+5. Abre tu navegador y navega a `http://localhost:3000`.
+
+## Contribución
+
+¡Las contribuciones son bienvenidas! Por favor, sigue los siguientes pasos para contribuir al proyecto:
+
+1. Haz un fork del proyecto.
+2. Crea una nueva rama (`git checkout -b feature/nueva-funcionalidad`).
+3. Realiza los cambios necesarios y commitea (`git commit -m 'Agrega nueva funcionalidad'`).
+4. Haz push a la rama (`git push origin feature/nueva-funcionalidad`).
+5. Abre un Pull Request.
+
+## Licencia
+
+Este proyecto está licenciado bajo la Licencia MIT. Para más detalles, consulta el archivo [LICENSE](LICENSE).
+
+## Contacto
+
+Si tienes alguna pregunta o sugerencia, no dudes en contactar al equipo de desarrollo en [email@ejemplo.com](mailto:email@ejemplo.com).
+
+---
+
+¡Espero que esto sea de ayuda y que tu proyecto tenga mucho éxito! 🚀
