@@ -28,6 +28,7 @@ const FormGroup: React.FC<FormGroupProps> = ({ id, label, type, value, onChange,
       {type === 'textarea' && (
         <Textarea id={id} name={id} placeholder={placeholder} value={value} onChange={onChange} />
       )}
+      
       {type === 'select' && (
         <Select id={id} name={id} value={value} onChange={onChange}>
           {options?.map(option => (

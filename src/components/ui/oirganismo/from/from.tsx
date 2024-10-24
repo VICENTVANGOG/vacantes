@@ -17,7 +17,8 @@ const AddProductForm: React.FC<AddProductFormProps> = ({ activeTab }) => {
     status: '',
     companyName: '',
     location: '',
-    contact: ''
+    contact: '',
+    compani:''
   });
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
@@ -66,6 +67,15 @@ const AddProductForm: React.FC<AddProductFormProps> = ({ activeTab }) => {
               { value: 'abierta', label: 'Abierta' },
               { value: 'cerrada', label: 'Cerrada' }
             ]}
+            className="add-product-form__group"
+          />
+           <FormGroup
+            id="compani"
+            label="compañia"
+            type="text"
+            value={formData.compani}
+            onChange={handleInputChange}
+            placeholder="Ingresa el título de la compañia"
             className="add-product-form__group"
           />
         </>
