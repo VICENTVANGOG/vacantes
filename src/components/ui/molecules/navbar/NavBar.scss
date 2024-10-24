@@ -32,7 +32,7 @@
       font-weight: 500;
       font-size: 0.875rem;
       transition: background-color 0.2s, color 0.2s, transform 0.2s;
-      border: none; // Cambiado de 2px solid transparent
+      border: none; 
 
       svg {
           width: 1rem;
@@ -42,10 +42,11 @@
 
       &--vacantes {
           background-color: transparent;
-          color: #A855F7;
+          color: rgb(168, 85, 247);
+
 
           &:hover {
-              background-color: #A855F7;
+              background-color:rgb(147, 51, 234);
               color: white;
           }
 
@@ -61,10 +62,11 @@
 
       &--companias {
           background-color: transparent;
-          color: #EC4899;
+          color:rgb(236, 72, 153);
 
           &:hover {
-              background-color: #EC4899;
+              background-color:  rgb(219, 39, 119)
+              ;
               color: white;
           }
 

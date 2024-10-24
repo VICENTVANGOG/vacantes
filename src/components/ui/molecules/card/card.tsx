@@ -1,6 +1,6 @@
 import React from 'react';
 import { FaTrashAlt } from 'react-icons/fa'; 
-import { MdModeEdit } from "react-icons/md";
+import { MdOutlineEdit  } from "react-icons/md";
 import InfoCard from '../../atoms/div/div'; 
 import Myh1 from '../../atoms/h1/h1'; 
 import MyH3 from '../../atoms/h3/h3'; 
@@ -104,7 +104,7 @@ const Card: React.FC<CardProps> = ({ activeTab }) => {
 
           <div className={styles.actions}>
             <Button className={styles.editButton}>
-              <MdModeEdit  size={20} color="#6c63ff" /> 
+              <MdOutlineEdit   size={20} color="#6c63ff" /> 
             </Button>
             <Button className={styles.deleteButton}>
               <FaTrashAlt size={20} color="#ff4d4d" /> 
