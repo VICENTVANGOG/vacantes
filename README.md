@@ -1,4 +1,9 @@
-# Proyecto de Gestión de Inventarios
+# Proyecto de Gestión de vacantes y compañias
+
+
+
+<img>![image](https://github.com/user-attachments/assets/23e5520d-6515-4f46-a5e0-311b22675052)
+<img/>
 
 ## Descripción
 
@@ -26,7 +31,7 @@ Puedes acceder a la aplicación en https://vacantes-taupe.vercel.app/home
 
 1. Clona el repositorio:
     ```bash
-    git clone https://github.com/usuario/proyecto-inventarios.git
+    git clone https://github.com/VICENTVANGOG/vacantes.git
     ```
 
 2. Navega al directorio del proyecto:
@@ -45,25 +50,5 @@ Puedes acceder a la aplicación en https://vacantes-taupe.vercel.app/home
     ```
 
 5. Abre tu navegador y navega a `http://localhost:3000`.
-
-## Contribución
-
-¡Las contribuciones son bienvenidas! Por favor, sigue los siguientes pasos para contribuir al proyecto:
-
-1. Haz un fork del proyecto.
-2. Crea una nueva rama (`git checkout -b feature/nueva-funcionalidad`).
-3. Realiza los cambios necesarios y commitea (`git commit -m 'Agrega nueva funcionalidad'`).
-4. Haz push a la rama (`git push origin feature/nueva-funcionalidad`).
-5. Abre un Pull Request.
-
-## Licencia
-
-Este proyecto está licenciado bajo la Licencia MIT. Para más detalles, consulta el archivo [LICENSE](LICENSE).
-
-## Contacto
-
-Si tienes alguna pregunta o sugerencia, no dudes en contactar al equipo de desarrollo en [email@ejemplo.com](mailto:email@ejemplo.com).
-
----
 
 ¡Espero que esto sea de ayuda y que tu proyecto tenga mucho éxito! 🚀
