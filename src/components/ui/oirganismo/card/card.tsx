@@ -1,4 +1,4 @@
-// Card.tsx
+
 import React from 'react';
 import InfoCard from '../../molecules/InfoCard/InfoCard';
 import styles from './Card.module.scss';

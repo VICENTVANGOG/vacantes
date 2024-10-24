@@ -1,4 +1,4 @@
-// HeroSection.tsx
+
 'use client';
 import React, { useState } from 'react';
 import Myh1 from '@/components/ui/atoms/h1/h1';

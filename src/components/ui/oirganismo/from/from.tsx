@@ -1,4 +1,4 @@
-// AddProductForm.tsx
+
 'use client';
 import React, { useState } from 'react';
 import Myh1 from '../../atoms/h1/h1';
