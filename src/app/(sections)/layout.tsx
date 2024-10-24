@@ -1,5 +1,5 @@
 import MyHeader from "@/components/ui/molecules/header/header";
-import Mynavbar from "@/components/ui/molecules/navbar/navbar";
+import Mynavbar from "@/components/ui/oirganismo/navbar/navbar";
 import React from "react";
 
 

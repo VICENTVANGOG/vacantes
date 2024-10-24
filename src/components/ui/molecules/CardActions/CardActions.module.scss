@@ -1,0 +1,28 @@
+// CardActions.module.scss
+.actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+  }
+  
+  .editButton {
+    cursor: pointer;
+    padding: 4px;
+    background: none;
+    border: none;
+    &:hover {
+      background-color: rgba(108, 99, 255, 0.1);
+    }
+  }
+  
+  .deleteButton {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    color: rgb(239, 68, 68);
+    &:hover {
+      color: rgb(220, 38, 38);
+      background-color: rgb(254, 242, 242);
+    }
+  }
+  
