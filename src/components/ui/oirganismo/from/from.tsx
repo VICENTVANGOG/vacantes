@@ -1,9 +1,10 @@
-
 'use client';
 import React, { useState } from 'react';
 import Myh1 from '../../atoms/h1/h1';
 import Button from '@/components/ui/atoms/button/button';
 import FormGroup from '@/components/ui/molecules/FormGroup/FormGroup';
+import { companyService } from '@/services/company.services'; // Importa el servicio de compañías
+import { vacantsService } from '@/services/vacantes.services '; // Importa el servicio de vacantes
 import './AddProductForm.scss';
 
 interface AddProductFormProps {
@@ -18,7 +19,7 @@ const AddProductForm: React.FC<AddProductFormProps> = ({ activeTab }) => {
     companyName: '',
     location: '',
     contact: '',
-    compani:''
+    compani: ''
   });
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
@@ -29,9 +30,52 @@ const AddProductForm: React.FC<AddProductFormProps> = ({ activeTab }) => {
     });
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log('Formulario enviado:', formData);
+
+    try {
+      if (activeTab === 'vacantes') {
+        // Enviar datos de la vacante
+        await vacantsService.post({
+          title: formData.title,
+          description: formData.description,
+          status: formData.status,
+          company: formData.compani // Asegúrate de que esto coincida con tu modelo
+        });
+        console.log('Vacante agregada:', formData);
+      } else {
+        // Enviar datos de la compañía
+        const newCompany = {
+          id: generateId(), // Genera un ID temporal (puedes implementar una lógica diferente si lo prefieres)
+          name: formData.companyName,
+          location: formData.location,
+          contact: formData.contact,
+          vacants: [] // Inicializa vacants como un arreglo vacío
+        };
+
+        await companyService.post(newCompany);
+        console.log('Compañía agregada:', formData);
+      }
+
+      // Resetear el formulario después de enviar
+      setFormData({
+        title: '',
+        description: '',
+        status: '',
+        companyName: '',
+        location: '',
+        contact: '',
+        compani: ''
+      });
+
+    } catch (error) {
+      console.error('Error al agregar:', error);
+    }
+  };
+
+  // Función para generar un ID temporal (puedes usar otra lógica)
+  const generateId = () => {
+    return Math.random().toString(36).substr(2, 9); // Genera un ID aleatorio
   };
 
   return (
@@ -43,24 +87,27 @@ const AddProductForm: React.FC<AddProductFormProps> = ({ activeTab }) => {
             id="title"
             label="Título"
             type="text"
+            name="title"
             value={formData.title}
             onChange={handleInputChange}
-            placeholder="Ingresa el título de la vacante"
+
             className="add-product-form__group"
           />
           <FormGroup
             id="description"
             label="Descripción"
             type="textarea"
+            name="description"
             value={formData.description}
             onChange={handleInputChange}
-            placeholder="Descripción de la vacante"
+ 
             className="add-product-form__group"
           />
           <FormGroup
             id="status"
             label="Estado"
             type="select"
+            name="status"
             value={formData.status}
             onChange={handleInputChange}
             options={[
@@ -69,13 +116,14 @@ const AddProductForm: React.FC<AddProductFormProps> = ({ activeTab }) => {
             ]}
             className="add-product-form__group"
           />
-           <FormGroup
+          <FormGroup
             id="compani"
-            label="compañia"
+            label="Compañía"
             type="text"
+            name="compani"
             value={formData.compani}
             onChange={handleInputChange}
-            placeholder="Ingresa el título de la compañia"
+  
             className="add-product-form__group"
           />
         </>
@@ -86,27 +134,28 @@ const AddProductForm: React.FC<AddProductFormProps> = ({ activeTab }) => {
             id="companyName"
             label="Nombre"
             type="text"
+            name="companyName"
             value={formData.companyName}
             onChange={handleInputChange}
-            placeholder="Ingresa el nombre de la compañía"
+   
             className="add-product-form__group"
           />
           <FormGroup
             id="location"
             label="Ubicación"
             type="text"
+            name="location"
             value={formData.location}
             onChange={handleInputChange}
-            placeholder="Ingresa la ubicación de la compañía"
             className="add-product-form__group"
           />
           <FormGroup
             id="contact"
             label="Contacto"
             type="text"
+            name="contact"
             value={formData.contact}
             onChange={handleInputChange}
-            placeholder="Ingresa el contacto de la compañía"
             className="add-product-form__group"
           />
         </>

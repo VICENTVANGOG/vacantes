@@ -1,6 +1,5 @@
-
 import React from 'react';
-import { FaTrashAlt } from 'react-icons/fa';
+import { PiTrashBold } from 'react-icons/pi';
 import { MdOutlineEdit } from "react-icons/md";
 import Button from '../../atoms/button/button';
 import styles from './CardActions.module.scss';
@@ -10,17 +9,17 @@ interface CardActionsProps {
   onDelete: () => void;
 }
 
-const CardActions: React.FC<CardActionsProps> = ({ onEdit, onDelete }) => {
+export default function CardActions({ onEdit, onDelete }: CardActionsProps) {
   return (
     <div className={styles.actions}>
-      <Button className={styles.editButton} onClick={onEdit}>
-        <MdOutlineEdit size={20} color="#6c63ff" />
+      <Button className={styles.button} onClick={onEdit}>
+        <MdOutlineEdit size={20} className={styles.editIcon} />
+        <span className={styles.srOnly}>Editar</span>
       </Button>
-      <Button className={styles.deleteButton} onClick={onDelete}>
-        <FaTrashAlt size={20} color="#ff4d4d" />
+      <Button className={styles.button} onClick={onDelete}>
+        <PiTrashBold size={20} className={styles.deleteIcon} />
+        <span className={styles.srOnly}>Eliminar</span>
       </Button>
     </div>
   );
-};
-
-export default CardActions;
+}

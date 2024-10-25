@@ -14,10 +14,6 @@ export class companyService {
       throw error;
     }
   
-  
-
-
-
   }
 
 

@@ -8,5 +8,12 @@
     height: 100px; 
     background-color: white;
     color: black;
+
+
+    &:focus {
+      outline: none;
+      border-color: rgb(236, 72, 153);
+      box-shadow: 0 0 0 2px rgb(236, 72, 153);
+  }
   }
   

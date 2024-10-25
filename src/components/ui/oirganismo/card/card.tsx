@@ -1,3 +1,6 @@
+
+"use client";
+
 import React from 'react';
 import InfoCard from '../../molecules/InfoCard/InfoCard';
 import styles from './Card.module.scss';
@@ -17,7 +20,6 @@ const Card: React.FC<CardProps> = ({ companies, vacants, activeTab }) => {
 
     const handleEdit = (id: string) => {
         console.log(`Edit clicked for ID: ${id}`);
-        // Aquí puedes agregar la lógica para editar
     };
 
     const handleDelete = async (id: string) => {
@@ -25,10 +27,8 @@ const Card: React.FC<CardProps> = ({ companies, vacants, activeTab }) => {
         const isCompany = companies.some(company => company.id === id);
         if (isCompany) {
             await companyService.destroy(id);
-            // Aquí puedes agregar lógica para actualizar el estado si es necesario
         } else {
             await vacantsService.destroy(id);
-            // Aquí puedes agregar lógica para actualizar el estado si es necesario
         }
     };
 
@@ -36,8 +36,8 @@ const Card: React.FC<CardProps> = ({ companies, vacants, activeTab }) => {
         <div className={styles.cardContainer}>
             {dataToDisplay.map((item) => (
                 <InfoCard
-                    key={item.id} // Asegúrate de que cada item tenga un id único
-                    data={item} // Pasa todo el objeto a InfoCard
+                    key={item.id}
+                    data={item}
                     onEdit={handleEdit}
                     onDelete={handleDelete}
                 />
@@ -45,29 +45,5 @@ const Card: React.FC<CardProps> = ({ companies, vacants, activeTab }) => {
         </div>
     );
 };
-
-// Función para obtener datos del servidor
-export async function getServerSideProps() {
-    try {
-        const companies = await companyService.findAll();
-        const vacants = await vacantsService.findAll();
-        return {
-            props: {
-                companies,
-                vacants,
-                activeTab: "companias", // O el valor que desees por defecto
-            },
-        };
-    } catch (error) {
-        console.error("Error fetching data:", error);
-        return {
-            props: {
-                companies: [],
-                vacants: [],
-                activeTab: "companias", // Valor por defecto
-            },
-        };
-    }
-}
 
 export default Card;

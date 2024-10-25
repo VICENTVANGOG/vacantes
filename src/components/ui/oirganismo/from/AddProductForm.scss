@@ -26,7 +26,7 @@
     &__select {
       width: 100%;
       padding: 0.625rem;
-      border: 1px solid #E5E7EB;
+      border: 1px solid #e8c7f7;
       border-radius: 0.5rem;
       font-size: 0.875rem;
       color: #111827;
@@ -38,9 +38,7 @@
         box-shadow: 0 0 0 1px #EC4899;
       }
 
-      &::placeholder {
-        color: #9CA3AF;
-      }
+    
     }
   }
 
@@ -122,3 +120,4 @@
   color: #000000;
   margin-bottom: 1rem;
 }
+
