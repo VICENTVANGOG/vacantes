@@ -22,7 +22,7 @@ const NavBar: React.FC = () => {
         </div>
       </header>
       <HeroSection activeTab={activeTab} />
-      <Card activeTab={activeTab} />
+      <Card activeTab={activeTab} companies={[]} vacants={[]} />
     </>
   );
 };
