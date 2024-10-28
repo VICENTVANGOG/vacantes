@@ -16,6 +16,7 @@ interface FormGroupProps {
   placeholder?: string;
   options?: Array<{ value: string, label: string }>;
   className?: string;
+  name:string;
 }
 
 const FormGroup: React.FC<FormGroupProps> = ({ id, label, type, value, onChange, placeholder, options, className }) => {

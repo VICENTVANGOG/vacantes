@@ -8,5 +8,6 @@ export interface IVacants {
     name: string;
     location: string;
     contact: string;
+    company: string; 
   };
 }

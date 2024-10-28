@@ -3,9 +3,20 @@ import React, { useState } from 'react';
 import Myh1 from '../../atoms/h1/h1';
 import Button from '@/components/ui/atoms/button/button';
 import FormGroup from '@/components/ui/molecules/FormGroup/FormGroup';
-import { companyService } from '@/services/company.services'; // Importa el servicio de compañías
-import { vacantsService } from '@/services/vacantes.services '; // Importa el servicio de vacantes
+import { companyService } from '@/services/company.services';
+import { vacantsService } from '@/services/vacantes.services ';
 import './AddProductForm.scss';
+
+
+type VacancyStatus = 'ACTIVE' | 'INACTIVE';
+
+interface ICompany {
+  id: string;
+  name: string;
+  location: string;
+  contact: string;
+  vacants: []; 
+}
 
 interface AddProductFormProps {
   activeTab: 'vacantes' | 'companias';
@@ -15,7 +26,7 @@ const AddProductForm: React.FC<AddProductFormProps> = ({ activeTab }) => {
   const [formData, setFormData] = useState({
     title: '',
     description: '',
-    status: '',
+    status: '' as VacancyStatus,
     companyName: '',
     location: '',
     contact: '',
@@ -24,9 +35,10 @@ const AddProductForm: React.FC<AddProductFormProps> = ({ activeTab }) => {
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
+
     setFormData({
       ...formData,
-      [name]: value
+      [name]: name === 'status' ? (value as VacancyStatus) : value
     });
   };
 
@@ -35,33 +47,41 @@ const AddProductForm: React.FC<AddProductFormProps> = ({ activeTab }) => {
 
     try {
       if (activeTab === 'vacantes') {
-        // Enviar datos de la vacante
+        const companyData = {
+          id: generateId(), 
+          name: formData.compani,
+          location: formData.location,
+          contact: formData.contact,
+          company: formData.compani 
+        };
+
         await vacantsService.post({
           title: formData.title,
           description: formData.description,
           status: formData.status,
-          company: formData.compani // Asegúrate de que esto coincida con tu modelo
+          company: companyData 
+          ,
+          id: ''
         });
         console.log('Vacante agregada:', formData);
       } else {
-        // Enviar datos de la compañía
-        const newCompany = {
-          id: generateId(), // Genera un ID temporal (puedes implementar una lógica diferente si lo prefieres)
+        const newCompany: ICompany = {
+          id: generateId(),
           name: formData.companyName,
           location: formData.location,
           contact: formData.contact,
-          vacants: [] // Inicializa vacants como un arreglo vacío
+          vacants: [] 
         };
 
         await companyService.post(newCompany);
         console.log('Compañía agregada:', formData);
       }
 
-      // Resetear el formulario después de enviar
+  
       setFormData({
         title: '',
         description: '',
-        status: '',
+        status: '' as VacancyStatus,
         companyName: '',
         location: '',
         contact: '',
@@ -73,9 +93,8 @@ const AddProductForm: React.FC<AddProductFormProps> = ({ activeTab }) => {
     }
   };
 
-  // Función para generar un ID temporal (puedes usar otra lógica)
   const generateId = () => {
-    return Math.random().toString(36).substr(2, 9); // Genera un ID aleatorio
+    return Math.random().toString(36).substr(2, 9);
   };
 
   return (
@@ -90,17 +109,15 @@ const AddProductForm: React.FC<AddProductFormProps> = ({ activeTab }) => {
             name="title"
             value={formData.title}
             onChange={handleInputChange}
-
             className="add-product-form__group"
           />
           <FormGroup
             id="description"
             label="Descripción"
             type="textarea"
-            name="description"
+            name="description" 
             value={formData.description}
             onChange={handleInputChange}
- 
             className="add-product-form__group"
           />
           <FormGroup
@@ -111,8 +128,8 @@ const AddProductForm: React.FC<AddProductFormProps> = ({ activeTab }) => {
             value={formData.status}
             onChange={handleInputChange}
             options={[
-              { value: 'abierta', label: 'Abierta' },
-              { value: 'cerrada', label: 'Cerrada' }
+              { value: 'ACTIVE', label: 'Abierta' },
+              { value: 'INACTIVE', label: 'Cerrada' }
             ]}
             className="add-product-form__group"
           />
@@ -120,10 +137,9 @@ const AddProductForm: React.FC<AddProductFormProps> = ({ activeTab }) => {
             id="compani"
             label="Compañía"
             type="text"
-            name="compani"
+            name="compani" 
             value={formData.compani}
             onChange={handleInputChange}
-  
             className="add-product-form__group"
           />
         </>
@@ -137,7 +153,6 @@ const AddProductForm: React.FC<AddProductFormProps> = ({ activeTab }) => {
             name="companyName"
             value={formData.companyName}
             onChange={handleInputChange}
-   
             className="add-product-form__group"
           />
           <FormGroup
