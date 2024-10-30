@@ -3,10 +3,10 @@ import React, { useState } from 'react';
 import Myh1 from '../../atoms/h1/h1';
 import Button from '@/components/ui/atoms/button/button';
 import FormGroup from '@/components/ui/molecules/FormGroup/FormGroup';
-import { companyService } from '@/services/company.services';
-import { vacantsService } from '@/services/vacantes.services ';
+import { CompanyService } from '@/services/company.services';
+import { VacantsService } from '@/services/vacantes.services ';
+import { IVacants } from '@/models/vacantes.models ';
 import './AddProductForm.scss';
-
 
 type VacancyStatus = 'ACTIVE' | 'INACTIVE';
 
@@ -15,7 +15,7 @@ interface ICompany {
   name: string;
   location: string;
   contact: string;
-  vacants: []; 
+  vacants: [];
 }
 
 interface AddProductFormProps {
@@ -30,12 +30,11 @@ const AddProductForm: React.FC<AddProductFormProps> = ({ activeTab }) => {
     companyName: '',
     location: '',
     contact: '',
-    compani: ''
+    companyId: '' // ID de la compañía seleccionada
   });
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
-
     setFormData({
       ...formData,
       [name]: name === 'status' ? (value as VacancyStatus) : value
@@ -47,37 +46,31 @@ const AddProductForm: React.FC<AddProductFormProps> = ({ activeTab }) => {
 
     try {
       if (activeTab === 'vacantes') {
-        const companyData = {
-          id: generateId(), 
-          name: formData.compani,
-          location: formData.location,
-          contact: formData.contact,
-          company: formData.compani 
-        };
-
-        await vacantsService.post({
+        const vacantData: IVacants = {
           title: formData.title,
           description: formData.description,
           status: formData.status,
-          company: companyData 
+          companyId: formData.companyId // Envío del companyId
           ,
           id: ''
-        });
-        console.log('Vacante agregada:', formData);
+        };
+
+        await VacantsService.post(vacantData);
+        console.log('Vacante agregada:', vacantData);
       } else {
         const newCompany: ICompany = {
           id: generateId(),
           name: formData.companyName,
           location: formData.location,
           contact: formData.contact,
-          vacants: [] 
+          vacants: []
         };
 
-        await companyService.post(newCompany);
-        console.log('Compañía agregada:', formData);
+        await CompanyService.post(newCompany);
+        console.log('Compañía agregada:', newCompany);
       }
 
-  
+      // Resetear el formulario
       setFormData({
         title: '',
         description: '',
@@ -85,16 +78,15 @@ const AddProductForm: React.FC<AddProductFormProps> = ({ activeTab }) => {
         companyName: '',
         location: '',
         contact: '',
-        compani: ''
+        companyId: ''
       });
-
     } catch (error) {
       console.error('Error al agregar:', error);
     }
   };
 
   const generateId = () => {
-    return Math.random().toString(36).substr(2, 9);
+    return Math.random().toString(36).substr(2, 9); // Genera un ID único
   };
 
   return (
@@ -115,7 +107,7 @@ const AddProductForm: React.FC<AddProductFormProps> = ({ activeTab }) => {
             id="description"
             label="Descripción"
             type="textarea"
-            name="description" 
+            name="description"
             value={formData.description}
             onChange={handleInputChange}
             className="add-product-form__group"
@@ -134,11 +126,11 @@ const AddProductForm: React.FC<AddProductFormProps> = ({ activeTab }) => {
             className="add-product-form__group"
           />
           <FormGroup
-            id="compani"
-            label="Compañía"
-            type="text"
-            name="compani" 
-            value={formData.compani}
+            id="companyId"
+            label="ID de Compañía"
+            type="text" // Cambia a un select si tienes una lista de compañías
+            name="companyId"
+            value={formData.companyId}
             onChange={handleInputChange}
             className="add-product-form__group"
           />

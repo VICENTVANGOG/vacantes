@@ -2,13 +2,13 @@
 import MyHeader from "@/components/ui/molecules/header/header";
 import NavBar from "@/components/ui/oirganismo/navbar/navbar";
 import React from "react";
-import { companyService } from '@/services/company.services';
-import { vacantsService } from '@/services/vacantes.services ';
+import { CompanyService } from '@/services/company.services';
+import { VacantsService } from '@/services/vacantes.services ';
 
 export default async function Layout({ children }: Readonly<{ children: React.ReactNode }>) {
 
-    const companies = await companyService.findAll();
-    const vacants = await vacantsService.findAll();
+    const companies = await CompanyService.findAll();
+    const vacants = await VacantsService.findAll();
 
     return (
         <div className="layout">

@@ -1,4 +1,4 @@
-// page.tsx (o cualquier nombre de tu página)
+
 import React from 'react';
 
 

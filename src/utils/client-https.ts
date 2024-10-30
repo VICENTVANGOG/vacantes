@@ -1,4 +1,4 @@
-const defaultBaseUrl = 'http://192.168.88.153/api/v1/';
+const defaultBaseUrl = 'https://vacantsbackendgates-production.up.railway.app/api/v1/';
 
 export class HttpClient {
     private baseUrl: string;
@@ -9,41 +9,41 @@ export class HttpClient {
 
     async GET<T>(url: string): Promise<T> {
         const headers = await this.getHeader();
-        const response = await fetch(`${this.baseUrl}${url}`, { 
-            headers: headers,
+        const response = await fetch(`${this.baseUrl}${url}`, {
+            headers,
             method: "GET",
             cache: "no-store"
         });
-        return this.handleResponse(response);
+        return this.handleResponse<T>(response);
     }
 
-    async delete<T>(url: string): Promise<T> {
+    async DELETE(url: string): Promise<void> {
         const headers = await this.getHeader();
         const response = await fetch(`${this.baseUrl}${url}`, {
-            headers: headers,
+            headers,
             method: "DELETE",
         });
-        return this.handleResponse(response);
+        await this.handleResponse<void>(response);
     }
 
-    async post<T, B>(url: string, body: B): Promise<T> {
+    async POST<T, B>(url: string, body: B): Promise<T> {
         const headers = await this.getHeader();
         const response = await fetch(`${this.baseUrl}${url}`, {
-            headers: headers,
+            headers,
             method: "POST",
             body: JSON.stringify(body),
         });
-        return this.handleResponse(response);
+        return this.handleResponse<T>(response);
     }
 
-    async put<T, B>(url: string, body: B): Promise<T> {
+    async PUT<T, B>(url: string, body: B): Promise<T> {
         const headers = await this.getHeader();
         const response = await fetch(`${this.baseUrl}${url}`, {
-            headers: headers,
+            headers,
             method: "PUT",
             body: JSON.stringify(body),
         });
-        return this.handleResponse(response);
+        return this.handleResponse<T>(response);
     }
 
     private async getHeader() {
@@ -52,11 +52,17 @@ export class HttpClient {
         };
     }
 
-    private async handleResponse(response: Response) {
+    private async handleResponse<T>(response: Response): Promise<T> {
         if (!response.ok) {
             const errorData = await response.json();
             throw new Error(errorData.message || "Ocurrió un error en la petición");
         }
-        return await response.json();
+        
+      
+        try {
+            return await response.json();
+        } catch {
+            return {} as T; 
+        }
     }
 }
