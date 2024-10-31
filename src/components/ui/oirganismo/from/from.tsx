@@ -15,19 +15,20 @@ interface ICompany {
   name: string;
   location: string;
   contact: string;
-  vacants: [];
+  vacants: IVacants[];
 }
 
 interface AddProductFormProps {
   activeTab: 'vacantes' | 'companias';
-  onClose: () => void; // Añadido
+  onClose: () => void;
+  editData?: IVacants | ICompany | null; // Permitir null
 }
 
-const AddProductForm: React.FC<AddProductFormProps> = ({ activeTab, onClose }) => {
+const AddProductForm: React.FC<AddProductFormProps> = ({ activeTab, onClose, editData }) => {
   const [formData, setFormData] = useState({
     title: '',
     description: '',
-    status: '' as VacancyStatus,
+    status: 'ACTIVE' as VacancyStatus,
     companyId: '',
     companyName: '',
     location: '',
@@ -50,6 +51,32 @@ const AddProductForm: React.FC<AddProductFormProps> = ({ activeTab, onClose }) =
     fetchCompanies();
   }, []);
 
+  useEffect(() => {
+    if (editData) {
+      if (activeTab === 'vacantes' && 'companyId' in editData) {
+        setFormData({
+          title: editData.title,
+          description: editData.description,
+          status: editData.status,
+          companyId: editData.companyId,
+          companyName: '',
+          location: '',
+          contact: '',
+        });
+      } else if (activeTab === 'companias' && 'name' in editData) {
+        setFormData({
+          title: '',
+          description: '',
+          status: 'ACTIVE',
+          companyId: '',
+          companyName: editData.name,
+          location: editData.location,
+          contact: editData.contact,
+        });
+      }
+    }
+  }, [editData, activeTab]);
+
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
     setFormData({
@@ -61,13 +88,12 @@ const AddProductForm: React.FC<AddProductFormProps> = ({ activeTab, onClose }) =
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    // Validación para vacantes
     if (activeTab === 'vacantes') {
       if (!formData.title || !formData.description || !formData.companyId) {
         console.error('Todos los campos son obligatorios para la vacante');
         return;
       }
-    } else { 
+    } else {
       if (!formData.companyName || !formData.location || !formData.contact) {
         console.error('Todos los campos son obligatorios para la compañía');
         return;
@@ -81,39 +107,46 @@ const AddProductForm: React.FC<AddProductFormProps> = ({ activeTab, onClose }) =
           description: formData.description,
           status: formData.status,
           companyId: formData.companyId,
-          id: '',
+          id: editData ? (editData as IVacants).id : '',
         };
 
-        await VacantsService.post(vacantData);
-        console.log('Vacante agregada:', vacantData);
+        if (editData) {
+          await VacantsService.update(vacantData);
+        } else {
+          await VacantsService.post(vacantData);
+        }
+        console.log('Vacante procesada:', vacantData);
       } else {
         const newCompany: ICompany = {
-          id: generateId(),
+          id: editData ? (editData as ICompany).id : generateId(),
           name: formData.companyName,
           location: formData.location,
           contact: formData.contact,
           vacants: [],
         };
 
-        await CompanyService.post(newCompany);
-        console.log('Compañía agregada:', newCompany);
+        if (editData) {
+          await CompanyService.update(newCompany);
+        } else {
+          await CompanyService.post(newCompany);
+        }
+        console.log('Compañía procesada:', newCompany);
       }
 
       // Resetear el formulario
       setFormData({
         title: '',
         description: '',
-        status: '' as VacancyStatus,
+        status: 'ACTIVE',
         companyId: '',
         companyName: '',
         location: '',
         contact: '',
       });
 
-      // Cerrar el modal
-      onClose(); // Llamar a onClose para cerrar el modal
+      onClose();
     } catch (error) {
-      console.error('Error al agregar:', error);
+      console.error('Error al agregar o editar:', error);
     }
   };
 
@@ -123,9 +156,12 @@ const AddProductForm: React.FC<AddProductFormProps> = ({ activeTab, onClose }) =
 
   return (
     <form className="add-product-form" onSubmit={handleSubmit}>
+      <Myh1 className='titulo'>
+        {editData ? (activeTab === 'vacantes' ? 'Editar Vacante' : 'Editar Compañía') : 
+        (activeTab === 'vacantes' ? 'Agregar Vacante' : 'Agregar Compañía')}
+      </Myh1>
       {activeTab === 'vacantes' ? (
         <>
-          <Myh1 className='titulo'>Agregar Vacante</Myh1>
           <FormGroup
             id="title"
             label="Título"
@@ -173,7 +209,6 @@ const AddProductForm: React.FC<AddProductFormProps> = ({ activeTab, onClose }) =
         </>
       ) : (
         <>
-          <Myh1 className='titulo'>Agregar Compañía</Myh1>
           <FormGroup
             id="companyName"
             label="Nombre"
@@ -205,7 +240,8 @@ const AddProductForm: React.FC<AddProductFormProps> = ({ activeTab, onClose }) =
       )}
       <div className="add-product-form__actions">
         <Button type="submit" className="add-product-form__submit-button">
-          {activeTab === 'vacantes' ? 'Agregar Vacante' : 'Agregar Compañía'}
+          {editData ? (activeTab === 'vacantes' ? 'Actualizar Vacante' : 'Actualizar Compañía') : 
+          (activeTab === 'vacantes' ? 'Agregar Vacante' : 'Agregar Compañía')}
         </Button>
       </div>
     </form>

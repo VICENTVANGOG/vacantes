@@ -5,5 +5,5 @@ export interface ICompany {
   name: string;
   location: string;
   contact: string;
-  vacants: IVacants[]; 
+  vacants: IVacants[]; // Asegúrate de que sea un array de IVacants
 }
