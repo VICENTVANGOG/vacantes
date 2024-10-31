@@ -2,6 +2,9 @@ import { ICompany } from "@/models/compani.models";
 import { HttpClient } from "@/utils/client-https"; 
 
 export class CompanyService {
+    static getAll() {
+      throw new Error('Method not implemented.');
+    }
     private static httpClient = new HttpClient();
 
     static async findAll(): Promise<ICompany[]> {

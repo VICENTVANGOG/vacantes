@@ -1,5 +1,5 @@
 'use client';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Myh1 from '../../atoms/h1/h1';
 import Button from '@/components/ui/atoms/button/button';
 import FormGroup from '@/components/ui/molecules/FormGroup/FormGroup';
@@ -27,22 +27,44 @@ const AddProductForm: React.FC<AddProductFormProps> = ({ activeTab }) => {
     title: '',
     description: '',
     status: '' as VacancyStatus,
+    companyId: '',
     companyName: '',
     location: '',
     contact: '',
-    companyId: '' // ID de la compañía seleccionada
   });
+
+  const [companies, setCompanies] = useState<ICompany[]>([]);
+
+  useEffect(() => {
+    const fetchCompanies = async () => {
+      try {
+        const response = await fetch('http://vacantsbackendgates-production.up.railway.app/api/v1/company/all');
+        const data = await response.json();
+        setCompanies(data); // Ajusta según la estructura de tu respuesta
+      } catch (error) {
+        console.error('Error al obtener compañías:', error);
+      }
+    };
+
+    fetchCompanies();
+  }, []);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
     setFormData({
       ...formData,
-      [name]: name === 'status' ? (value as VacancyStatus) : value
+      [name]: name === 'status' ? (value as VacancyStatus) : value,
     });
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    // Validación simple
+    if (!formData.title || !formData.description || !formData.companyId) {
+      console.error('Todos los campos son obligatorios');
+      return; // Detenemos la ejecución si hay campos vacíos
+    }
 
     try {
       if (activeTab === 'vacantes') {
@@ -50,9 +72,8 @@ const AddProductForm: React.FC<AddProductFormProps> = ({ activeTab }) => {
           title: formData.title,
           description: formData.description,
           status: formData.status,
-          companyId: formData.companyId // Envío del companyId
-          ,
-          id: ''
+          companyId: formData.companyId, // Envío del companyId seleccionado
+          id: '',
         };
 
         await VacantsService.post(vacantData);
@@ -63,7 +84,7 @@ const AddProductForm: React.FC<AddProductFormProps> = ({ activeTab }) => {
           name: formData.companyName,
           location: formData.location,
           contact: formData.contact,
-          vacants: []
+          vacants: [],
         };
 
         await CompanyService.post(newCompany);
@@ -75,10 +96,10 @@ const AddProductForm: React.FC<AddProductFormProps> = ({ activeTab }) => {
         title: '',
         description: '',
         status: '' as VacancyStatus,
+        companyId: '',
         companyName: '',
         location: '',
         contact: '',
-        companyId: ''
       });
     } catch (error) {
       console.error('Error al agregar:', error);
@@ -121,17 +142,21 @@ const AddProductForm: React.FC<AddProductFormProps> = ({ activeTab }) => {
             onChange={handleInputChange}
             options={[
               { value: 'ACTIVE', label: 'Abierta' },
-              { value: 'INACTIVE', label: 'Cerrada' }
+              { value: 'INACTIVE', label: 'Cerrada' },
             ]}
             className="add-product-form__group"
           />
           <FormGroup
             id="companyId"
-            label="ID de Compañía"
-            type="text" // Cambia a un select si tienes una lista de compañías
+            label="Compañía"
+            type="select"
             name="companyId"
             value={formData.companyId}
             onChange={handleInputChange}
+            options={companies.map(company => ({
+              value: company.id,
+              label: company.name,
+            }))}
             className="add-product-form__group"
           />
         </>
