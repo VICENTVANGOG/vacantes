@@ -12,8 +12,11 @@ interface ModalFormProps {
 const ModalForm: React.FC<ModalFormProps> = ({ isOpen, onClose, activeTab }) => {
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
-      <AddProductForm activeTab={activeTab} />
-    </Modal>
+    <AddProductForm
+      activeTab={activeTab}
+      onClose={onClose} 
+    />
+  </Modal>
   );
 };
 

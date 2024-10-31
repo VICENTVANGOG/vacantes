@@ -20,9 +20,10 @@ interface ICompany {
 
 interface AddProductFormProps {
   activeTab: 'vacantes' | 'companias';
+  onClose: () => void; // Añadido
 }
 
-const AddProductForm: React.FC<AddProductFormProps> = ({ activeTab }) => {
+const AddProductForm: React.FC<AddProductFormProps> = ({ activeTab, onClose }) => {
   const [formData, setFormData] = useState({
     title: '',
     description: '',
@@ -40,7 +41,7 @@ const AddProductForm: React.FC<AddProductFormProps> = ({ activeTab }) => {
       try {
         const response = await fetch('http://vacantsbackendgates-production.up.railway.app/api/v1/company/all');
         const data = await response.json();
-        setCompanies(data); // Ajusta según la estructura de tu respuesta
+        setCompanies(data);
       } catch (error) {
         console.error('Error al obtener compañías:', error);
       }
@@ -60,10 +61,17 @@ const AddProductForm: React.FC<AddProductFormProps> = ({ activeTab }) => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    // Validación simple
-    if (!formData.title || !formData.description || !formData.companyId) {
-      console.error('Todos los campos son obligatorios');
-      return; // Detenemos la ejecución si hay campos vacíos
+    // Validación para vacantes
+    if (activeTab === 'vacantes') {
+      if (!formData.title || !formData.description || !formData.companyId) {
+        console.error('Todos los campos son obligatorios para la vacante');
+        return;
+      }
+    } else { 
+      if (!formData.companyName || !formData.location || !formData.contact) {
+        console.error('Todos los campos son obligatorios para la compañía');
+        return;
+      }
     }
 
     try {
@@ -72,7 +80,7 @@ const AddProductForm: React.FC<AddProductFormProps> = ({ activeTab }) => {
           title: formData.title,
           description: formData.description,
           status: formData.status,
-          companyId: formData.companyId, // Envío del companyId seleccionado
+          companyId: formData.companyId,
           id: '',
         };
 
@@ -101,13 +109,16 @@ const AddProductForm: React.FC<AddProductFormProps> = ({ activeTab }) => {
         location: '',
         contact: '',
       });
+
+      // Cerrar el modal
+      onClose(); // Llamar a onClose para cerrar el modal
     } catch (error) {
       console.error('Error al agregar:', error);
     }
   };
 
   const generateId = () => {
-    return Math.random().toString(36).substr(2, 9); // Genera un ID único
+    return Math.random().toString(36).substr(2, 9);
   };
 
   return (
