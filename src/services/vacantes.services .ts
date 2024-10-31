@@ -25,12 +25,13 @@ export class VacantsService {
     }
 
     static async post(vacant: IVacants): Promise<IVacants> {
+        this.validateVacant(vacant);  // Validate before sending
+
         try {
-            console.log("Datos de la vacante a enviar:", vacant); // Para depurar
+            console.log("Datos de la vacante a enviar:", vacant); // For debugging
             const response = await this.httpClient.POST<IVacants, IVacants>("vacants", vacant);
             return response;
         } catch (error) {
-            // Manejo de errores
             const errorMessage = this.handleFetchError(error);
             console.error(errorMessage);
             throw new Error(errorMessage);
@@ -38,6 +39,8 @@ export class VacantsService {
     }
 
     static async update(vacants: IVacants): Promise<IVacants> {
+        this.validateVacant(vacants);  // Validate before sending
+
         try {
             const response = await this.httpClient.PUT<IVacants, IVacants>(`vacants/${vacants.id}`, vacants);
             return response;
@@ -58,5 +61,17 @@ export class VacantsService {
         }
 
         return 'Error desconocido al realizar la solicitud.';
+    }
+
+    private static validateVacant(vacant: IVacants): void {
+        if (!vacant.title || !vacant.description || !vacant.companyId) {
+            throw new Error("Faltan campos requeridos: title, description, y companyId son obligatorios.");
+        }
+
+        if (vacant.status !== "ACTIVE" && vacant.status !== "INACTIVE") {
+            throw new Error("El estado debe ser 'ACTIVE' o 'INACTIVE'.");
+        }
+
+      
     }
 }

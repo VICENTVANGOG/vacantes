@@ -57,12 +57,16 @@ export class HttpClient {
             const errorData = await response.json();
             throw new Error(errorData.message || "Ocurrió un error en la petición");
         }
-        
-      
+
+        // Explicitly handle the case where no content is returned
+        if (response.status === 204) {
+            return {} as T; // No content, return empty object
+        }
+
         try {
             return await response.json();
         } catch {
-            return {} as T; 
+            return {} as T; // In case of no JSON response
         }
     }
 }
