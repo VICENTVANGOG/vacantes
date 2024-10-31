@@ -14,7 +14,6 @@ const Card: React.FC<CardProps> = ({ activeTab }) => {
     const [companies, setCompanies] = useState<ICompany[]>([]);
     const [vacants, setVacants] = useState<IVacants[]>([]);
 
-    // Función para cargar compañías y vacantes
     const loadData = async () => {
         try {
             const [companiesData, vacantsData] = await Promise.all([
